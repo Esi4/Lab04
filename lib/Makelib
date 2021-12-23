@@ -1,0 +1,14 @@
+.PHONY: all clean
+OBJS= findMedian.c
+AR = riscv64-unknown-elf-ar.exe
+CC = riscv64-unknown-elf-gcc.exe
+MYLIBNAME = libMedian.a
+CFLAGS= -O1
+INCLUDES+= -I .
+vpath %.h .
+vpath %.c .
+%.o: %.c
+	$(CC) -MD $(CFLAGS) $(INCLUDES) -c $< -o $@
+all: $(MYLIBNAME)
+$(MYLIBNAME): findMedian.o
+	$(AR) -rsc $@ $^
